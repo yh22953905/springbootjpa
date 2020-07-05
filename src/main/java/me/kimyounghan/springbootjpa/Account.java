@@ -2,6 +2,8 @@ package me.kimyounghan.springbootjpa;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 //@Entity(name = "users")
 @Entity
@@ -30,6 +32,17 @@ public class Account {
     )
     private Address address;
 
+    @OneToMany(mappedBy = "owner")
+    private Set<Study> studies = new HashSet<>();
+
+    public Set<Study> getStudies() {
+        return studies;
+    }
+
+    public void setStudies(Set<Study> studies) {
+        this.studies = studies;
+    }
+
     public Long getId() {
         return id;
     }
@@ -54,4 +67,13 @@ public class Account {
         this.password = password;
     }
 
+    public void addStudy(Study study) {
+        this.getStudies().add(study);
+        study.setOwner(this);
+    }
+
+    public void removeStudy(Study study) {
+        this.getStudies().remove(study);
+        study.setOwner(null);
+    }
 }
