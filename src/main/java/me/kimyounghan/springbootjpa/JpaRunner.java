@@ -19,8 +19,8 @@ public class JpaRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Account account = new Account();
-        account.setUsername("hibernate");
-        account.setPassword("5678");
+        account.setUsername("younghan");
+        account.setPassword("1234");
 
         Study study = new Study();
         study.setName("Spring Data JPA");
@@ -33,6 +33,13 @@ public class JpaRunner implements ApplicationRunner {
         Session session = entityManager.unwrap(Session.class);
         session.save(account);
         session.save(study);
+
+        Account younghan = session.load(Account.class, account.getId());
+        younghan.setUsername("Dirty Checking");
+        younghan.setUsername("Write Behind");
+        younghan.setUsername("younghan");
+        System.out.println("==================================================");
+        System.out.println(younghan.getUsername());
     }
 
 }
