@@ -20,23 +20,7 @@ public class CommentRepositoryTest {
 
     @Test
     public void crud() {
-//        Comment comment = new Comment();
-//        comment.setComment("Hello Comment");
-//        commentRepository.save(comment);
-//
-//        List<Comment> all = commentRepository.findAll();
-//        assertThat(all.size()).isEqualTo(1);
-//
-//        long count = commentRepository.count();
-//        assertThat(count).isEqualTo(1);
-
-        Optional<Comment> byId = commentRepository.findById(100l);
-        assertThat(byId).isEmpty();
-//        Comment comment = byId.orElse(new Comment());
-        Comment comment = byId.orElseThrow(IllegalArgumentException::new);
-
-        List<Comment> comments = commentRepository.findAll();
-        assertThat(comments).isEmpty();
+        commentRepository.save(null);
     }
 
 }
