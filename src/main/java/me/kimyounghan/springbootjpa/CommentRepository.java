@@ -9,11 +9,12 @@ import java.util.List;
 
 public interface CommentRepository extends MyRepository<Comment, Long> {
 
-//    @Query(value = "SELECT c FROM Comment AS c", nativeQuery = true)
     List<Comment> findByCommentContains(String keyword);
 
-//    Page<Comment> findByTitleIgnoreCase(String title, Pageable pageable);
+    List<Comment> findByCommentContainsIgnoreCase(String keyword);
 
-    Page<Comment> findByLikeCountGreaterThanAndPost(int likeCount, Post post, Pageable pageable);
+    List<Comment> findByCommentContainsIgnoreCaseAndLikeCountGreaterThan(String keyword, int likeCount);
+
+    List<Comment> findByCommentContainsIgnoreCaseOrderByLikeCountDesc(String keyword);
 
 }

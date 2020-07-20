@@ -20,7 +20,19 @@ public class CommentRepositoryTest {
 
     @Test
     public void crud() {
-//        commentRepository.save(null);
+        this.createComment(100, "spring data jpa");
+        this.createComment(50, "HIBERNATE SPRING");
+
+        List<Comment> comments = commentRepository.findByCommentContainsIgnoreCaseOrderByLikeCountDesc("Spring");
+        assertThat(comments.size()).isEqualTo(2);
+        assertThat(comments).first().hasFieldOrPropertyWithValue("LikeCount", 100);
+    }
+
+    private void createComment(int likeCount, String comment) {
+        Comment newComment = new Comment();
+        newComment.setComment("spring data jpa");
+        newComment.setLikeCount(likeCount);
+        commentRepository.save(newComment);
     }
 
 }
