@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,9 +29,10 @@ public class CommentRepositoryTest {
 
         PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "LikeCount"));
 
-        Page<Comment> comments = commentRepository.findByCommentContainsIgnoreCase("Spring", pageRequest);
-        assertThat(comments.getNumberOfElements()).isEqualTo(2);
-        assertThat(comments).first().hasFieldOrPropertyWithValue("LikeCount", 100);
+        try(Stream<Comment> comments = commentRepository.findByCommentContainsIgnoreCase("Spring", pageRequest)) {
+            Comment firstComment = comments.findFirst().get();
+            assertThat(firstComment.getLikeCount()).isEqualTo(100);
+        }
     }
 
     private void createComment(int likeCount, String comment) {
