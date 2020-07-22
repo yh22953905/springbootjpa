@@ -14,6 +14,8 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class CommentRepositoryTest {
@@ -25,6 +27,10 @@ public class CommentRepositoryTest {
     public void crud() throws ExecutionException, InterruptedException {
         this.createComment(100, "spring data jpa");
         this.createComment(50, "HIBERNATE SPRING");
+        commentRepository.flush();
+
+        List<Comment> all = commentRepository.findAll();
+        assertThat(all.size()).isEqualTo(2);
 
         PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "LikeCount"));
 
@@ -41,10 +47,13 @@ public class CommentRepositoryTest {
 
             @Override
             public void onSuccess(@Nullable List<Comment> comments) {
-                System.out.println("==========");
-                System.out.println(comments);
+                System.out.println("===== Async =====");
+                System.out.println(comments.size());
+                assertThat(comments.size()).isEqualTo(2);
             }
         });
+
+        Thread.sleep(5000l);
     }
 
     private void createComment(int likeCount, String comment) {
