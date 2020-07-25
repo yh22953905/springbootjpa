@@ -1,8 +1,6 @@
 package me.kimyounghan.springbootjpa;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Post {
@@ -12,13 +10,10 @@ public class Post {
 
     private String title;
 
-    @OneToMany(mappedBy = "post", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
-    private Set<Comment> comments = new HashSet<>();
+    @Lob
+    private String content;
 
-    public void addComment(Comment comment) {
-        this.getComments().add(comment);
-        comment.setPost(this);
-    }
+    @Temporal(TemporalType.TIMESTAMP)
 
     public Long getId() {
         return id;
@@ -36,18 +31,11 @@ public class Post {
         this.title = title;
     }
 
-    public Set<Comment> getComments() {
-        return comments;
+    public String getContent() {
+        return content;
     }
 
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
-    }
-
-    @Override
-    public String toString() {
-        return "Post{" +
-                "title='" + title + '\'' +
-                '}';
+    public void setContent(String content) {
+        this.content = content;
     }
 }
