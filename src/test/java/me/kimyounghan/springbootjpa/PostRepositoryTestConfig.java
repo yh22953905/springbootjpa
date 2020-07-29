@@ -1,5 +1,6 @@
 package me.kimyounghan.springbootjpa;
 
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -7,8 +8,15 @@ import org.springframework.context.annotation.Configuration;
 public class PostRepositoryTestConfig {
 
     @Bean
-    public PostListener postListener() {
-        return new PostListener();
+    public ApplicationListener<PostPublishedEvent> postListener() {
+        return new ApplicationListener<PostPublishedEvent>() {
+            @Override
+            public void onApplicationEvent(PostPublishedEvent event) {
+                System.out.println("==========");
+                System.out.println(event.getPost().getTitle() + " is published!!");
+                System.out.println("==========");
+            }
+        };
     }
 
 }
