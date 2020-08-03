@@ -19,12 +19,9 @@ class BookRepositoryTest {
         Book book = new Book();
         book.setTitle("spring");
         book.setContent("data");
-        bookRepository.save(book);
+        Book newBook = bookRepository.save(book);
 
-        assertEquals(1, bookRepository.findAll().size());
-
-        Optional<Book> ring = bookRepository.findOne(QBook.book.title.contains("ring"));
-        assertTrue(ring.isPresent());
+        assertTrue(bookRepository.contains(newBook));
     }
 
 }
