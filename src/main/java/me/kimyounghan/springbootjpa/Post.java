@@ -3,6 +3,7 @@ package me.kimyounghan.springbootjpa;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Post extends AbstractAggregateRoot<Post> {
@@ -12,10 +13,8 @@ public class Post extends AbstractAggregateRoot<Post> {
 
     private String title;
 
-    @Lob
-    private String content;
-
     @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
 
     public Long getId() {
         return id;
@@ -33,16 +32,11 @@ public class Post extends AbstractAggregateRoot<Post> {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public Date getCreated() {
+        return created;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Post publish() {
-        this.registerEvent(new PostPublishedEvent(this));
-        return this;
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }
