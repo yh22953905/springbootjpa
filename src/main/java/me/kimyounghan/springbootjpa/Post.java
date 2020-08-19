@@ -8,7 +8,8 @@ import java.util.Date;
 @Entity
 public class Post extends AbstractAggregateRoot<Post> {
 
-    @Id @GeneratedValue
+//    @Id @GeneratedValue
+    @Id
     private Long id;
 
     private String title;
