@@ -28,18 +28,13 @@ public class PostRepositoryTest {
         post.setTitle("jpa");
         Post savedPost = postRepository.save(post);// persist
 
-        assertThat(entityManager.contains(post)).isTrue();
-        assertThat(entityManager.contains(savedPost)).isTrue();
-        assertThat(post == savedPost);
-
         Post postUpdate = new Post();
         postUpdate.setId(post.getId());
         postUpdate.setTitle("hibernate");
         Post updatedPost = postRepository.save(postUpdate);// merge
 
-        assertThat(entityManager.contains(postUpdate)).isFalse();
-        assertThat(entityManager.contains(updatedPost)).isTrue();
-        assertThat(postUpdate == updatedPost);
+        //postUpdate.setTitle("kimyounghan");
+        updatedPost.setTitle("kimyounghan"); // Persistent 상태의 객체의 변화를 감지하여 반영하기 때문에 save 메소드의 리턴 값을 사용해야 한다.
 
         List<Post> all = postRepository.findAll();
         assertThat(all.size()).isEqualTo(1);
