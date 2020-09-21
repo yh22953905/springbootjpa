@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@NamedQuery(name = "Post.findByTitle1", query = "SELECT p FROM Post AS p WHERE p.title = ?1")
 public class Post extends AbstractAggregateRoot<Post> {
 
     @Id @GeneratedValue
