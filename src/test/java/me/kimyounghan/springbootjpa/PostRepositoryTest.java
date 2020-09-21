@@ -4,6 +4,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
@@ -57,7 +59,8 @@ public class PostRepositoryTest {
     @Test
     public void findByTitle2() {
         savePost();
-        List<Post> all = postRepository.findByTitle2("Spring");
+//        List<Post> all = postRepository.findByTitle2("Spring", Sort.by("title"));
+        List<Post> all = postRepository.findByTitle2("Spring", JpaSort.unsafe("length(title)")); // 프로퍼티 혹은 alias가 아닌 값으로 정렬하는 방법
         assertThat(all.size()).isEqualTo(1);
     }
 
