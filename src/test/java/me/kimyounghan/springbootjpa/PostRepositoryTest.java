@@ -81,7 +81,8 @@ public class PostRepositoryTest {
 
         Optional<Post> byId = postRepository.findById(spring.getId());
         assertThat(byId.get().getTitle()).isEqualTo(hibernate);
-        // clear 또는 flush 해주지 않으면, spring 변수에 해당하는 Post 객체가 여전히 Persistent Context 에 남아 있기 때문에 select 를 하지 않아 update 가 일어나지 않음.
+        // clear 또는 flush 해주지 않으면
+        // spring 변수에 해당하는 Post 객체가 여전히 Persistent Context 에 남아 있기 때문에 select 를 하지 않아 update 가 일어나지 않음.
     }
 
 }
