@@ -2,8 +2,6 @@ package me.kimyounghan.springbootjpa;
 
 import javax.persistence.*;
 
-// name : 그래프의 이름, attributeNodes : 연관 관계의 이름
-@NamedEntityGraph(name = "Comment.post", attributeNodes = @NamedAttributeNode("post"))
 @Entity
 public class Comment {
 
