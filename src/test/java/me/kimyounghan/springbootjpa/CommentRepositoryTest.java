@@ -18,11 +18,19 @@ public class CommentRepositoryTest {
 
     @Test
     public void getComment() {
-        commentRepository.getById(1L);
+        Post post = new Post();
+        post.setTitle("jpa");
+        Post savedPost = postRepository.save(post);
 
-        System.out.println("==");
+        Comment comment = new Comment();
+        comment.setPost(savedPost);
+        comment.setUp(10);
+        comment.setDown(1);
+        commentRepository.save(comment);
 
-        commentRepository.findById(1L);
+        commentRepository.findByPost_Id(1L).forEach(c -> {
+            System.out.println(c.getVotes());
+        });
     }
 
 }
