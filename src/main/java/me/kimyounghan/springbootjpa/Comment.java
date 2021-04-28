@@ -13,6 +13,12 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY) // ToOne 인 경우 FetchType 기본은 EAGER, ToMany 인 경우 FetchType 기본은 LAZY
     private Post post;
 
+    private int up;
+
+    private int down;
+
+    private boolean best;
+
     public Long getId() {
         return id;
     }
